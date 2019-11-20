@@ -1,0 +1,14 @@
+.viminfo
+.bash_history
+.cache
+go
+_output
+allitems.csv.*
+allitems.csv
+allitems.utf8.csv
+gocve.sqlite
+cvedb.sqlite
+cvedb.sqlite.*
+.psql_*
+.sqlite_*
+.gocve
