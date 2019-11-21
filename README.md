@@ -3,25 +3,26 @@
 
 GoCVE is a command line client that provides CVE info (queried from a local database). GoCVE provides simple commands to download and populate a DB(postgres or sqlite) which you can then use to list, search or get CVE info from.
 
-GoCVE is a single binary that works on mac and linux.
+GoCVE is a single binary that was tested on linux.
 
 # Usage
 
 ## Configure the GoCVE tool
+
+The configs you set will be written out to a config file at `~/.gocve/gocve.yaml`
+
+If you would like to use a different file for the configs, use the `--config` option to point to a different file. `--config` is a global flag and can be used in any of the following commands to point to a different source of config.
+
 
 ### postgres
 `gocve config set-db --dbType postgres --dbHost pg-docker --dbPort 5432 --dbUser postgres --tableName cve`
 
 Remember to set the env var GOCVE_PASSWORD to your DB password 
 
-The configs you set will be written out to a config file at `~/.gocve/gocve.yaml`
-
 ### sqlite: 
 `gocve config set-db --dbType sqlite --dbName cvedb.sqlite`
 
 The configs you set will be written out to a config file at `~/.gocve/gocve.yaml`
-
-If you would like to use a different file for the configs, use the `--config` option to point to a different file. `--config` is a global flag and can be used in any of the following commands to point to a different source of config.
 
 ## Show the GoCVE config
 
@@ -51,7 +52,7 @@ tablename:  cve
 
 `gocve db download`
 
-If you have used the defauls, a file `allitems.csv.gz` will be downloaded to your local. You can unzip it by doing `gunzip allitems.csv.gz`. Unzip it after that.
+If you have used the defauls, a file `allitems.csv.gz` will be downloaded to your local. You can unzip it by doing `gunzip allitems.csv.gz`.
 
 See `gocve help db download` for more details.
 
@@ -63,20 +64,14 @@ Your DB probably has UTF-8 encoding. To change to UTF-8 do:
 
 `iconv -f ISO-8859-14 -t UTF-8 allitems.csv > allitems.utf8.csv`
 
-
 ### postgres 
 We will assume that your postgres instance has a DB called `cvedb` created. (If not connect to your postgres instance and run `create database cvedb;`)
-
-Before you can use the data inside `allitems.csv` you have to make sure the character encoding is the same. Find your current encoding:
-
-`file allitems.csv `
-
 
 To load `allitems.utf8.csv` into the DB, do:
 
 `gocve db populate --fileName allitems.utf8.csv`
 
-This will take a few minutes. NOTE: The above command programatically inserts the info into the DB. It does not use an COPY/LOAD utility.
+*NOTE:* This will take a few minutes. The above command programatically inserts the info into the DB. It does not use an COPY/LOAD utility.
 
 ### sqlite
 
