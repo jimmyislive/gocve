@@ -6,7 +6,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 
 	ds "github.com/jimmyislive/gocve/internal/pkg/ds"
 
@@ -14,21 +13,6 @@ import (
 	// make linting happy
 	_ "github.com/mattn/go-sqlite3"
 )
-
-// RemoveDB xxx
-func RemoveDB(fileName string) error {
-	err := os.Remove(fileName)
-	if err != nil {
-		// If the file did not exist, then this is a no-op
-		if os.IsNotExist(err) {
-			return nil
-		}
-		return err
-	}
-
-	fmt.Println(fmt.Sprintf("%v has been removed", fileName))
-	return err
-}
 
 // PopulateDB populates the DB with cve data from the recordsList
 func PopulateDB(cfg *ds.Config, recordsList [][]string) error {

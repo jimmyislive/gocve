@@ -76,12 +76,6 @@ func populateDB(cfg *ds.Config, fileName string) error {
 		recordsList = append(recordsList, record)
 	}
 
-	/*
-		err = dbWrapper.RemoveDB(dbName)
-		if err != nil {
-			log.Fatal(err)
-		}*/
-
 	err = dbWrapper.PopulateDB(cfg, recordsList)
 	if err != nil {
 		log.Fatal(err)

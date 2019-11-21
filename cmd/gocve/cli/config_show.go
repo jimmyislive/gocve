@@ -28,7 +28,9 @@ var configShowCmd = &cobra.Command{
 		fmt.Println("dbport: ", cfg.DBport)
 		fmt.Println("dbuser: ", cfg.DBuser)
 		fmt.Println("tablename: ", cfg.Tablename)
-		fmt.Println("password: ", cfg.Password)
+		if cfg.DBtype == "postgres" {
+			fmt.Println("password: ", cfg.Password)
+		}
 
 	},
 }
