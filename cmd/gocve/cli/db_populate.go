@@ -3,11 +3,13 @@
 package cli
 
 import (
+	"bufio"
 	"encoding/csv"
 	"fmt"
 	"io"
 	"log"
 	"os"
+	"strings"
 
 	dbWrapper "github.com/jimmyislive/gocve/internal/pkg/db"
 	ds "github.com/jimmyislive/gocve/internal/pkg/ds"
@@ -57,7 +59,22 @@ func populateDB(cfg *ds.Config, fileName string) error {
 		log.Fatalln(err)
 	}
 
-	r := csv.NewReader(f)
+	// Read and skip the first 10 lines as they are headers
+	fmt.Println("Skipping first 10 lines of header...")
+	scanner := bufio.NewScanner(f)
+	for i := 0; i < 10; i++ {
+		scanner.Scan()
+		fmt.Println("Skipped header: ", scanner.Text())
+	}
+
+	var lines []string
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	fileContent := strings.Join(lines, "\n")
+
+	r := csv.NewReader(strings.NewReader(fileContent))
 	var recordsList [][]string
 
 	for {
