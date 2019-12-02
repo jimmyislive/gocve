@@ -77,7 +77,7 @@ To load `allitems.utf8.csv` into the DB, do:
 
 `gocve db populate --fileName allitems.utf8.csv`
 
-*NOTE:* This may take a while in sqlite say 30-45 minutes! (We don't use the normal `.import` of sqlite as that results in a lot of parsing errors)
+*NOTE:* This may take a while in sqlite! (We don't use the normal `.import` of sqlite as that results in a lot of parsing errors)
 
 You are now ready to use GoCVE !
 
@@ -145,4 +145,4 @@ You can now build your go code:
 
 
 # TODO
-* Unit tests
+* Complete unit tests

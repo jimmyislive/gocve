@@ -1,5 +1,6 @@
 BIN ?= gocve
 VERSION=`cat VERSION`
+.PHONY : test
 
 docker-build:
 	@docker build -t gocve:${VERSION} .
@@ -15,3 +16,6 @@ go-build-linux-amd64:
 
 go-build:
 	@make go-build-linux-amd64
+
+test:
+	@cd cmd/gocve/cli && go test . -v
